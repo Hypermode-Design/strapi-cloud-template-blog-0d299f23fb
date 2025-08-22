@@ -373,41 +373,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAssetAsset extends Struct.CollectionTypeSchema {
-  collectionName: 'assets';
-  info: {
-    description: 'Font assets like images, files, and media';
-    displayName: 'Asset';
-    pluralName: 'assets';
-    singularName: 'asset';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    asset_type: Schema.Attribute.Enumeration<
-      ['image', 'file', 'video', 'demo']
-    > &
-      Schema.Attribute.DefaultTo<'image'>;
-    asset_url: Schema.Attribute.String & Schema.Attribute.Required;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    is_featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::asset.asset'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    sort_order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    thumbnail: Schema.Attribute.Media<'images'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiFontFont extends Struct.CollectionTypeSchema {
   collectionName: 'fonts';
   info: {
@@ -424,16 +389,12 @@ export interface ApiFontFont extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     foundry: Schema.Attribute.Relation<'manyToMany', 'api::foundry.foundry'>;
-    images: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    images: Schema.Attribute.Media<'images' | 'files', true>;
     is_premium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     link: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::font.font'> &
       Schema.Attribute.Private;
-    logo: Schema.Attribute.Media<'images'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     price: Schema.Attribute.Enumeration<['free', 'paid', 'trial']> &
       Schema.Attribute.DefaultTo<'free'>;
@@ -992,7 +953,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::asset.asset': ApiAssetAsset;
       'api::font.font': ApiFontFont;
       'api::foundry.foundry': ApiFoundryFoundry;
       'plugin::content-releases.release': PluginContentReleasesRelease;
