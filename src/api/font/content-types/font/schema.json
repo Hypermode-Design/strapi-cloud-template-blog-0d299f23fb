@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fonts",
+  "info": {
+    "singularName": "font",
+    "pluralName": "fonts",
+    "displayName": "Font",
+    "description": "Font files and information"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": false
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "serif",
+        "sans-serif",
+        "display",
+        "handwriting",
+        "monospace",
+        "variable"
+      ]
+    },
+    "price": {
+      "type": "enumeration",
+      "default": "free",
+      "enum": [
+        "free",
+        "paid",
+        "trial"
+      ]
+    },
+    "foundry": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::foundry.foundry",
+      "inversedBy": "fonts"
+    }
+  }
+}

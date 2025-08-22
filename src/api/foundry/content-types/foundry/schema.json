@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "foundries",
+  "info": {
+    "singularName": "foundry",
+    "pluralName": "foundries",
+    "displayName": "Foundry",
+    "description": "Font foundries and developers"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "website": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "fonts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::font.font",
+      "mappedBy": "foundry"
+    }
+  }
+}
